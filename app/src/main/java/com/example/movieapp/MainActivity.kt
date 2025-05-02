@@ -1,6 +1,7 @@
 package com.example.movieapp
 
 import android.os.Bundle
+import android.view.View
 import android.widget.SearchView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
@@ -10,6 +11,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
+import androidx.paging.PagingData
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.movieapp.databinding.ActivityMainBinding
 import kotlinx.coroutines.flow.collectLatest
@@ -36,13 +38,27 @@ class MainActivity : AppCompatActivity() {
         binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 query?.let {
-                    viewModel.setQuery(it)
+                    if (it.isNotBlank()) {
+                        viewModel.setQuery(it)
+                    } else {
+                        // Submit empty list if query is blank
+                        lifecycleScope.launch {
+                            adapter.submitData(PagingData.empty())
+                        }
+                    }
                 }
                 return true
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
-                return false
+
+                if (newText.isNullOrEmpty()) {
+                    // User clicked X or cleared the input → clear RecyclerView
+                    lifecycleScope.launch {
+                        adapter.submitData(PagingData.empty())
+                    }
+                }
+                return true
             }
         })
 
@@ -60,7 +76,7 @@ class MainActivity : AppCompatActivity() {
                         adapter.itemCount == 0
 
                 if (isListEmpty) {
-                    Toast.makeText(this@MainActivity, "Film is not in the list", Toast.LENGTH_SHORT).show()
+                   binding.errorView.visibility = View.VISIBLE
                 }
             }
         }
