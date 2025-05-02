@@ -1,16 +1,22 @@
-package com.example.movieapp
+package com.example.movieapp.model
 
 
 
-data class Response(
-    val results: List<Movies>,
+data class MovieResponse(
     val page: Int,
-    val total_pages: Int)
+    val results: List<Movies>,
+
+    val total_pages: Int,
+    val total_results: Int
+)
 
 data class Movies(
     val id: Int,
     val title: String,
-    val overview: String,
-    val poster_path: String
+    val poster_path: String?,
+    val release_date: String
 )
+
+
+
 

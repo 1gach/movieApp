@@ -7,6 +7,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 object RetrofitClient {
         private const val BASE_URL = "https://api.themoviedb.org/3/"
 
+
         val api:MovieApi by lazy {
             Retrofit.Builder()
                 .baseUrl(BASE_URL)
@@ -15,4 +16,6 @@ object RetrofitClient {
                 .create(MovieApi::class.java)
         }
     }
+
+
 

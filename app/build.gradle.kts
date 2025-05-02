@@ -50,6 +50,8 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+//   glide
+    implementation (libs.glide)
 
 // // Paging 3
 implementation (libs.androidx.paging.runtime.v321)
@@ -64,4 +66,9 @@ implementation (libs.androidx.lifecycle.runtime.ktx)
 //
 //// Coroutine support
 implementation (libs.kotlinx.coroutines.android)
+
+    // Kotlin Coroutines
+    implementation (libs.kotlinx.coroutines.core)
+    implementation (libs.kotlinx.coroutines.android)
+    implementation (libs.androidx.lifecycle.runtime.ktx.v262)
 }
