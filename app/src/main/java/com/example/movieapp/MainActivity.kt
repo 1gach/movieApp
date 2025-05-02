@@ -77,6 +77,8 @@ class MainActivity : AppCompatActivity() {
 
                 if (isListEmpty) {
                    binding.errorView.visibility = View.VISIBLE
+                }else{
+                    binding.errorView.visibility = View.INVISIBLE
                 }
             }
         }
